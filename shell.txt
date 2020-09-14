@@ -1,0 +1,2 @@
+1. Get-Process httpd
+2. Get-ChildItem -Path mig33/inner.folder/*.txt | Rename-Item -NewName {[System.IO.Path]::ChangeExtension($_.Name, ".dat")}

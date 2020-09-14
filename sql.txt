@@ -1,0 +1,12 @@
+1.
+SELECT DATE_FORMAT(DATE, '%Y-%m-%d') AS date, COUNT(IF(score > 0, 1, null)) AS num_pos_scores, COUNT(IF(score < 0, 1, null)) AS num_neg_scores 
+FROM assessments 
+WHERE DATE_FORMAT(DATE, '%Y-%m-%d') BETWEEN '2011-03-01' AND '2011-04-30'
+GROUP BY DATE_FORMAT(DATE, '%Y-%m-%d')
+
+2.
+SELECT DATE_FORMAT(DATE, '%Y-%m-%d') AS DATE
+FROM assessments 
+WHERE DATE_FORMAT(DATE, '%Y-%m-%d') BETWEEN '2011-01-01' AND '2011-06-30'
+GROUP BY DATE_FORMAT(DATE, '%Y-%m-%d') HAVING(COUNT(IF(score < 0, 1, NULL))) = 0
+ORDER BY DATE asc
