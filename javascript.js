@@ -5,27 +5,28 @@ const person = [
   { username: "zehua", hair_color: "black", height: 1.8 },
 ];
 
-var keys = Object.keys(person[0]);
+function improvedJSON(arr) {
+  var keys = Object.keys(arr[0]);
 
-var dataPerson = new Array();
-var header = new Array();
-var data = new Array();
+  var data = new Array();
+  var header = new Array();
+  var data = new Array();
 
-for (i = 0; i < person.length; i++) {
-  var row = new Array();
-  for (j = 0; j < keys.length; j++) {
-    row.push(person[i][keys[j]]);
+  for (i = 0; i < arr.length; i++) {
+    var row = new Array();
+    for (j = 0; j < keys.length; j++) {
+      row.push(arr[i][keys[j]]);
+    }
+    data.push(row);
   }
-  data.push(row);
+
+  for (i = 0; i < keys.length; i++) {
+    header.push(keys[i]);
+  }
+
+  data = { h: header, d: data };
+  return data;
 }
-
-for (i = 0; i < keys.length; i++) {
-  header.push(keys[i]);
-}
-
-dataPerson = { h: header, d: data };
-
-console.log(dataPerson);
 
 const http = require("http");
 
@@ -35,10 +36,10 @@ const port = 3000;
 const server = http.createServer((req, res) => {
   res.statusCode = 200;
   res.setHeader("Content-Type", "text/plain");
-  //res.end("Hello World");
-  res.end(JSON.stringify(dataPerson));
+  res.end(JSON.stringify(improvedJSON(person)));
 });
 
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
+  console.log(improvedJSON(person));
 });
